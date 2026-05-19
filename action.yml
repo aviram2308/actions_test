@@ -3,11 +3,20 @@ description: "hello world"
 author: "avinash"
 
 
-jobs:
-  first_job:
+# jobs:
+#   first_job:
 
-    runs-on: ubuntu-latest
+#     runs-on: ubuntu-latest
 
-    steps:
-      - name: prints hello
-        run: echo Hello World
+#     steps:
+#       - name: prints hello
+#         run: echo Hello World
+
+
+runs:
+  using: "composite"
+
+  steps:
+    - name: prints hello
+      shell: bash
+      run: echo "Hello World"
