@@ -13,10 +13,15 @@ author: "avinash"
 #         run: echo Hello World
 
 
+inputs:
+  message:
+    required: true
+    description: message to print
+
 runs:
   using: "composite"
 
   steps:
     - name: prints hello
       shell: bash
-      run: echo "Hello World"
+      run: echo "Hello ${{ inputs.message }}"
