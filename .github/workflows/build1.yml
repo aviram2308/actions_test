@@ -10,4 +10,5 @@ jobs:
 
       - uses: ./
         name: calling custom action
-        with: Avinash
+        with: 
+          message: Avinash
