@@ -1,0 +1,13 @@
+name: "hello world"
+description: "hello world"
+author: "avinash"
+
+
+jobs:
+  first_job:
+
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: prints hello
+        run: echo Hello World
