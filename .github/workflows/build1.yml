@@ -7,6 +7,8 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4  # git pull
+        with:
+          persist-credentials: false
 
       - name: Check secret availability
         run: echo "The secret is ${{ secrets.GIT_PAT }}"
