@@ -43,4 +43,4 @@ runs:
         git merge src/master --allow-unrelated-histories
         ls -la
         # git remote add tgt https://${{ inputs.git_pat }}@github.com/aviram2308/actions_test.git
-        git push tgt master --force
+        git push # tgt master --force
