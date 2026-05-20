@@ -34,4 +34,5 @@ runs:
         git remote add upstream https://github.com/aviram2308/branch_merge.git
         git fetch upstream
         git checkout master
-        git merge upstream/master
+        git merge upstream/master --allow-unrelated-histories
+        git push
