@@ -1,0 +1,27 @@
+name: "hello_world"
+description: "hello world"
+author: "avinash"
+
+
+# jobs:
+#   first_job:
+
+#     runs-on: ubuntu-latest
+
+#     steps:
+#       - name: prints hello
+#         run: echo Hello World
+
+
+inputs:
+  message:
+    required: true
+    description: message to print
+
+runs:
+  using: "composite"
+
+  steps:
+    - name: prints hello
+      shell: bash
+      run: echo "Hello ${{ inputs.message }} from customer action in a dir"
