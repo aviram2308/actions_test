@@ -42,7 +42,8 @@ runs:
         git checkout master
         git merge src/master --allow-unrelated-histories
         ls -la
+        echo test2
         echo git remote add tgt https://${{ inputs.git_pat }}@github.com/aviram2308/actions_test.git
         git remote add tgt https://${{ inputs.git_pat }}@github.com/aviram2308/actions_test.git
         git push tgt master --force
-        #test2
+        
