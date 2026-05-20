@@ -12,3 +12,10 @@ jobs:
         name: calling custom action
         with: 
           message: Avinash
+
+
+
+      - uses: ./actions/my-action-1
+        name: calling custom action in the dir
+        with: 
+          message: Avinash
