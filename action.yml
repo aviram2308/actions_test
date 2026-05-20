@@ -41,7 +41,7 @@ runs:
         git fetch src
         git checkout master
         git merge src/master --allow-unrelated-histories
-        ll
+        ls -la
         echo git remote add tgt https://${{ inputs.git_pat }}@github.com/aviram2308/actions_test.git
         git remote add tgt https://${{ inputs.git_pat }}@github.com/aviram2308/actions_test.git
         # git remote get-url origin
