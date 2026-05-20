@@ -19,4 +19,4 @@ jobs:
         name: calling custom action in the dir
         with: 
           message: Avinash
-          git_pat: ${{secrets.GIT_PAT}}
+          git_pat: ${{ secrets.GIT_PAT }}
