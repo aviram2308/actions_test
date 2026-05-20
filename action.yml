@@ -1,8 +1,10 @@
+# name, desc required, author optional
 name: "hello_world"
 description: "hello world"
 author: "avinash"
 
 
+# it cannot have JOBs
 # jobs:
 #   first_job:
 
@@ -14,14 +16,22 @@ author: "avinash"
 
 
 inputs:
-  message:
+  message:  # 1st input var
     required: true
     description: message to print
 
 runs:
-  using: "composite"
+  using: "composite"  # type  is composite
 
   steps:
     - name: prints hello
       shell: bash
-      run: echo "Hello ${{ inputs.message }}"
+      run: echo "Hello ${{ inputs.message }}"  # note how the input var is parametrized here
+
+    - name: merge the code
+      shell: bash
+      run: |
+        git remote add upstream https://github.com/aviram2308/branch_merge.git
+        git fetch upstream
+        git checkout master
+        git merge upstream/master
