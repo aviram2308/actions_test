@@ -1,6 +1,6 @@
 name: "Hello" # wfw name, visible in UI when we trigger this wfw. Yml file name can be different.
 
-on: [workflow_dispatch, push] # to allow manual run
+on: [workflow_dispatch] # to allow manual run
    
 jobs:
   hello: # 1st job, name OOC
