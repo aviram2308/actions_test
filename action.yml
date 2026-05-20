@@ -20,6 +20,10 @@ inputs:
     required: true
     description: message to print
 
+  git_pat:  # 1st input var
+    required: true
+    description: git pat
+
 runs:
   using: "composite"  # type  is composite
 
@@ -37,4 +41,5 @@ runs:
         git fetch upstream
         git checkout master
         git merge upstream/master --allow-unrelated-histories
-        git push
+        git remote set-url origin https://${{ inputs.git_pat }}@github.com/aviram2308/actions_test.git
+        git push 
