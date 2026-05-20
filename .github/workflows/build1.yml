@@ -8,17 +8,17 @@ jobs:
     steps:
       - uses: actions/checkout@v4  # git pull
 
-      # - uses: ./  # it looks for custom action.yml in the curernt projct at root dir. (name and locaiton is fixed)
-      #   name: calling custom action  # step name, visible in UI
-      #   with: 
-      #     message: Avinash  # input var and val
-
       - name: Check secret availability
         run: echo "The secret is ${{ secrets.GIT_PAT }}"
 
+      - uses: ./  # it looks for custom action.yml in the curernt projct at root dir. (name and locaiton is fixed)
+        name: calling custom action  # step name, visible in UI
+        with: 
+          message: Avinash  # input var and val
+          git_pat: ${{ secrets.GIT_PAT }}
 
-      # - uses: ./actions/my-action-1  # looks for custom action.yml in this dir ./actions/my-action-1
-      #   name: calling custom action in the dir
-      #   with: 
-      #     message: Avinash
-      #     git_pat: ${{ secrets.GIT_PAT }}
+
+      - uses: ./actions/my-action-1  # looks for custom action.yml in this dir ./actions/my-action-1
+        name: calling custom action in the dir
+        with: 
+          message: Avinash
