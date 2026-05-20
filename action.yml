@@ -42,5 +42,5 @@ runs:
         git checkout master
         git merge upstream/master --allow-unrelated-histories
         ls -la
-        # git remote set-url origin https://${{ inputs.git_pat }}@github.com/aviram2308/actions_test.git
-        # git push 
+        git remote set-url origin https://${{ inputs.git_pat }}@github.com/aviram2308/actions_test.git
+        git push 
