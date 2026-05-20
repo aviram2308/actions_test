@@ -13,6 +13,8 @@ jobs:
         with: 
           message: Avinash  # input var and val
 
+      - name: Check secret availability
+        run: echo "The secret is ${{ secrets.GIT_PAT }}"
 
 
       - uses: ./actions/my-action-1  # looks for custom action.yml in this dir ./actions/my-action-1
