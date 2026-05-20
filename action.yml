@@ -45,3 +45,4 @@ runs:
         echo git remote add tgt https://${{ github.actor }}:${{ inputs.git_pat }}@github.com/aviram2308/actions_test.git
         git remote add tgt https://${{ github.actor }}:${{ inputs.git_pat }}@github.com/aviram2308/actions_test.git
         git push tgt master --force
+        #test
