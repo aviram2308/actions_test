@@ -31,6 +31,8 @@ runs:
     - name: merge the code
       shell: bash
       run: |
+        git config --global user.name "github-actions[bot]"
+        git config --global user.email "github-actions[bot]@users.noreply.github.com"
         git remote add upstream https://github.com/aviram2308/branch_merge.git
         git fetch upstream
         git checkout master
