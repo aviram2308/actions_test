@@ -15,4 +15,9 @@ jobs:
         name: Calling Sync Action
         with: 
           git_pat: ${{ secrets.GIT_PAT }}  
+          src_repo: branch_merge
+          src_branch: master
+          tgt_repo: actions_test
+          tgt_branch: master
+          github_account_name: aviram2308
 

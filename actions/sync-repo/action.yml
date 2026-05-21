@@ -8,6 +8,29 @@ inputs:
     required: true
     description: git pat
 
+  src_repo: 
+    required: true
+    description: src_repo
+
+  src_branch: 
+    required: true
+    description: src_branch
+
+
+  tgt_repo: 
+    required: true
+    description: tgt_repo
+
+
+  tgt_branch: 
+    required: true
+    description: tgt_branch
+
+  github_account_name: 
+    required: true
+    description: github_account_name
+
+
 runs:
   using: "composite"  # type  is composite
 
@@ -21,14 +44,14 @@ runs:
     - name: add the SRC repo URL here and fetch it
       shell: bash
       run: |
-        git remote add src https://github.com/aviram2308/branch_merge.git
+        git remote add src https://github.com/${{ inputs.github_account_name }}/${{ inputs.src_repo }}.git
         git fetch src
 
     - name: merge the MASTER of SRC with CURRENT(TGT)
       shell: bash
       run: |
-        git checkout master
-        git merge src/master --allow-unrelated-histories
+        git checkout ${{ inputs.tgt_branch }}
+        git merge src/${{ inputs.src_branch }} --allow-unrelated-histories
 
 
     - name: can verify if the files are pulled here
@@ -37,11 +60,10 @@ runs:
         ls -la
         echo test4
 
-
     - name: add TGT/CURRENT repo PAT URL. And then push it
       shell: bash
       run: |
-        echo git remote add tgt https://${{ inputs.git_pat }}@github.com/aviram2308/actions_test.git
-        git remote add tgt https://${{ inputs.git_pat }}@github.com/aviram2308/actions_test.git
-        git push tgt master --force
+        echo git remote add tgt https://${{ inputs.git_pat }}@github.com/${{ inputs.github_account_name }}/${{ inputs.tgt_repo }}.git
+        git remote add tgt https://${{ inputs.git_pat }}@github.com/${{ inputs.github_account_name }}/${{ inputs.tgt_repo }}.git
+        git push tgt ${{ inputs.tgt_branch }} --force
         
