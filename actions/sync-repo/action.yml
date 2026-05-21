@@ -16,11 +16,9 @@ inputs:
     required: true
     description: src_branch
 
-
   tgt_repo: 
     required: true
     description: tgt_repo
-
 
   tgt_branch: 
     required: true
@@ -58,10 +56,10 @@ runs:
       run: |
         ls -la
 
-    - name: Add TGT/CURRENT repo PAT URL & Push it
+    - name: Add CURRENT(TGT) repo PAT URL & Push it
       shell: bash
       run: |
         git remote add tgt https://${{ inputs.git_pat }}@github.com/${{ inputs.github_account_name }}/${{ inputs.tgt_repo }}.git
         git push tgt ${{ inputs.tgt_branch }} --force
-        
+
         
