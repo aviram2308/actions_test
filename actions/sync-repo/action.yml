@@ -1,0 +1,47 @@
+name: "sync_croos_repo"
+description: "sync cross repo"
+author: "avinash"
+
+
+inputs:
+  git_pat: 
+    required: true
+    description: git pat
+
+runs:
+  using: "composite"  # type  is composite
+
+  steps:
+    - name: set the github bots as the author for git commits
+      shell: bash
+      run: |
+        git config --global user.name "github-actions[bot]"
+        git config --global user.email "github-actions[bot]@users.noreply.github.com"
+
+    - name: add the SRC repo URL here and fetch it
+      shell: bash
+      run: |
+        git remote add src https://github.com/aviram2308/branch_merge.git
+        git fetch src
+
+    - name: merge the MASTER of SRC with CURRENT(TGT)
+      shell: bash
+      run: |
+        git checkout master
+        git merge src/master --allow-unrelated-histories
+
+
+    - name: can verify if the files are pulled here
+      shell: bash
+      run: |
+        ls -la
+        echo test2
+
+
+    - name: add TGT/CURRENT repo PAT URL. And then push it
+      shell: bash
+      run: |
+        echo git remote add tgt https://${{ inputs.git_pat }}@github.com/aviram2308/actions_test.git
+        git remote add tgt https://${{ inputs.git_pat }}@github.com/aviram2308/actions_test.git
+        git push tgt master --force
+        
