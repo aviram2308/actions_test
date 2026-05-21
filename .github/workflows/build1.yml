@@ -7,8 +7,8 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4  # git pull
-        with:
-          persist-credentials: false  # to prevent the env vars/secrets from getting overridden
+        # with:
+        #   persist-credentials: false  # to prevent the env vars/secrets from getting overridden
 
       - name: Check secret availability  # this good way to check if the secrets are loaded
         # run: echo "The secret is ${{ secrets.GIT_PAT }}"
