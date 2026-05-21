@@ -35,7 +35,7 @@ runs:
       shell: bash
       run: |
         ls -la
-        echo test3
+        echo test4
 
 
     - name: add TGT/CURRENT repo PAT URL. And then push it
