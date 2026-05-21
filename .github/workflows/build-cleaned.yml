@@ -14,7 +14,7 @@ jobs:
       - uses: aviram2308/my_workflows/actions/sync-repo@master # for action.yml in external repo
       # - uses: ./actions/sync-repo   # for action.yml in this repo in specific dir
       # - uses: ./   # for action.yml in this repo at root
-        name: Calling Sync Action from External Repo
+        name: Calling Sync Action
         with: 
           git_pat: ${{ secrets.GIT_PAT }}  
           src_repo: branch_merge
