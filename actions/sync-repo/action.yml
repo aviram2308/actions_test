@@ -32,7 +32,7 @@ inputs:
 
 
 runs:
-  using: "composite"  # type  is composite
+  using: "composite"
 
   steps:
     - name: Set GitHub Bots as Authors
