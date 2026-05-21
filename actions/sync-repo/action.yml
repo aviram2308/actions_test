@@ -1,4 +1,4 @@
-name: "sync_croos_repo"
+name: "sync_cross_repo"
 description: "sync cross repo"
 author: "avinash"
 
@@ -35,35 +35,32 @@ runs:
   using: "composite"  # type  is composite
 
   steps:
-    - name: set the github bots as the author for git commits
+    - name: Set GitHub Bots as Authors
       shell: bash
       run: |
         git config --global user.name "github-actions[bot]"
         git config --global user.email "github-actions[bot]@users.noreply.github.com"
 
-    - name: add the SRC repo URL here and fetch it
+    - name: Add the SRC repo URL & Fetch it
       shell: bash
       run: |
         git remote add src https://github.com/${{ inputs.github_account_name }}/${{ inputs.src_repo }}.git
         git fetch src
 
-    - name: merge the MASTER of SRC with CURRENT(TGT)
+    - name: Merge SRC branch with CURRENT(TGT) branch
       shell: bash
       run: |
         git checkout ${{ inputs.tgt_branch }}
         git merge src/${{ inputs.src_branch }} --allow-unrelated-histories
 
-
-    - name: can verify if the files are pulled here
+    - name: Verify the merge
       shell: bash
       run: |
         ls -la
-        echo test4
 
-    - name: add TGT/CURRENT repo PAT URL. And then push it
+    - name: Add TGT/CURRENT repo PAT URL & Push it
       shell: bash
       run: |
-        echo git remote add tgt https://${{ inputs.git_pat }}@github.com/${{ inputs.github_account_name }}/${{ inputs.tgt_repo }}.git
         git remote add tgt https://${{ inputs.git_pat }}@github.com/${{ inputs.github_account_name }}/${{ inputs.tgt_repo }}.git
         git push tgt ${{ inputs.tgt_branch }} --force
         
