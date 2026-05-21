@@ -20,7 +20,7 @@ inputs:
     required: true
     description: message to print
 
-  git_pat:  # 1st input var
+  git_pat:  # 2nd input var
     required: true
     description: git pat
 
@@ -35,18 +35,33 @@ runs:
     - name: merge the code
       shell: bash
       run: |
+        # set the github bots as the author for git commits
         git config --global user.name "github-actions[bot]"
         git config --global user.email "github-actions[bot]@users.noreply.github.com"
 
+    - name: merge the code2
+      shell: bash
+      run: |
+        # add the SRC repo URL here and fetch it
         git remote add src https://github.com/aviram2308/branch_merge.git
         git fetch src
-
+    - name: merge the code3
+      shell: bash
+      run: |
+        # merge the MASTER of SRC with CURRENT(TGT)
         git checkout master
         git merge src/master --allow-unrelated-histories
+    - name: merge the code4
+      shell: bash
+      run: |
+        # can verify if the files are pulled here
         ls -la
 
         echo test2
-        
+    - name: merge the code5
+      shell: bash
+      run: |
+        # add TGT/CURRENT repo PAT URL, so that bot can git push it. And then push it (note if the wfw has PUSH TGR, then this would trigger the yaml in loop)
         echo git remote add tgt https://${{ inputs.git_pat }}@github.com/aviram2308/actions_test.git
         git remote add tgt https://${{ inputs.git_pat }}@github.com/aviram2308/actions_test.git
         git push tgt master --force
