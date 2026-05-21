@@ -11,15 +11,15 @@ jobs:
           persist-credentials: false  # to prevent the env vars/secrets from getting overridden
 
       - name: Check secret availability  # this good way to check if the secrets are loaded
-        # run: echo "The secret is ${{ secrets.GIT_PAT }}"
-        # run: expr length ${{ secrets.GIT_PAT }}
-        run: echo -n "${{ secrets.GIT_PAT }}" | base64
+        # run: echo "The secret is ${{ secrets.GIT_PAT }}"  # prints ***
+        # run: expr length ${{ secrets.GIT_PAT }}  # prints the lenght of the secret
+        run: echo -n "${{ secrets.GIT_PAT }}" | base64  # prints the base64 encoded, use this to decode "echo "YmFzaA==" | base64 -d"
 
       - uses: ./  # it looks for custom action.yml in the curernt projct at root dir. (name and locaiton is fixed)
         name: calling custom action  # step name, visible in UI
         with: 
           message: Avinash  # input var and val
-          git_pat: ${{ secrets.GIT_PAT }}
+          git_pat: ${{ secrets.GIT_PAT }}  # pass the secret token
 
 
       - uses: ./actions/my-action-1  # looks for custom action.yml in this dir ./actions/my-action-1
