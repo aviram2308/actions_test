@@ -8,10 +8,11 @@ jobs:
     steps:
       - uses: actions/checkout@v4  # git pull
         with:
-          persist-credentials: false
+          persist-credentials: false  # to prevent the env vars/secrets from getting overridden
 
-      - name: Check secret availability
-        run: echo "The secret is ${{ secrets.GIT_PAT }}"
+      - name: Check secret availability  # this good way to check if the secrets are loaded
+        # run: echo "The secret is ${{ secrets.GIT_PAT }}"
+        run: expr length ${{ secrets.GIT_PAT }}"
 
       - uses: ./  # it looks for custom action.yml in the curernt projct at root dir. (name and locaiton is fixed)
         name: calling custom action  # step name, visible in UI
