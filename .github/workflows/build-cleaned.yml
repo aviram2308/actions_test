@@ -11,8 +11,8 @@ jobs:
           persist-credentials: false  
 
   
-      - uses: aviram2308/my_workflows/actions/sync-repo@master
-      # - uses: ./actions/sync-repo 
+      - uses: aviram2308/my_workflows/actions/sync-repo@master # use for actions in external repo
+      # - uses: ./actions/sync-repo   # use for actions in this repo
         name: Calling Sync Action from External Repo
         with: 
           git_pat: ${{ secrets.GIT_PAT }}  
