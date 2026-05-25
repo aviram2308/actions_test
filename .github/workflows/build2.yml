@@ -3,7 +3,7 @@ name: "Sync-Cross-Repo-test"
 on: 
   workflow_dispatch:
     inputs:
-      environment:
+      environmentS:
         description: 'Target environment'
         required: true
         default: '["dev","qa","prod"]'   
