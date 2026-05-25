@@ -1,0 +1,27 @@
+name: "Sync-Cross-Repo" 
+
+on: 
+  workflow_dispatch:
+    inputs:
+      environment:
+        description: 'Target environment'
+        required: true
+        default: '["dev","qa","prod"]'   
+
+jobs:
+  deploy:
+    strategy:
+      matrix:
+        environment: ${{ fromJson(inputs.environments) }}
+
+    runs-on: ubuntu-latest
+
+    steps:
+      - run: echo "Deploying to ${{ matrix.environment }}"
+        name: Step1
+
+      - run: echo "Deploying2 to ${{ matrix.environment }}"
+        name: Step2
+
+
+    
