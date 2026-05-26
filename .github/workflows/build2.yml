@@ -6,7 +6,7 @@ on:
       environmentS:
         description: 'Target environment'
         required: true
-        default: '["dev","qa","prod"]'   
+        default: '["repoA","repoB","repoC"]'   
 
 jobs:
   deploy:
