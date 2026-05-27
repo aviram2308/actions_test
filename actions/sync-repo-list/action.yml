@@ -35,31 +35,55 @@ runs:
   steps:
     - name: Set GitHub Bots as Authors
       shell: bash
+      working-directory: ./temp_repo_dir
       run: |
         git config --global user.name "github-actions[bot]"
         git config --global user.email "github-actions[bot]@users.noreply.github.com"
 
+    - name: Creating a empty repo in the temp dir
+      shell: bash
+      working-directory: ./temp_repo_dir
+      run: |
+        git clone https://github.com/${{ inputs.github_account_name }}/${{ inputs.tgt_repo }}.git
+        ls -la  
+
     - name: Add the SRC repo URL & Fetch it
       shell: bash
+      working-directory: ./temp_repo_dir
       run: |
         git remote add src https://github.com/${{ inputs.github_account_name }}/${{ inputs.src_repo }}.git
         git fetch src
+        ls -la  
 
     - name: Merge SRC branch with CURRENT(TGT) branch
       shell: bash
+      working-directory: ./temp_repo_dir
       run: |
-        git checkout ${{ inputs.tgt_branch }}
+        git checkout ${{ inputs.src_branch }}
         git merge src/${{ inputs.src_branch }} --allow-unrelated-histories
-
-    - name: Verify the merge
-      shell: bash
-      run: |
         ls -la
+
+    # - name: Add the TGT repo URL & Fetch it
+    #   shell: bash
+    #   working-directory: ./temp_repo_dir
+    #   run: |
+    #     git remote add tgt https://github.com/${{ inputs.github_account_name }}/${{ inputs.tgt_repo }}.git
+    #     git fetch tgt
+    #     ls -la  
+
+    # - name: Merge TGT branch with SRC branch
+    #   shell: bash
+    #   working-directory: ./temp_repo_dir
+    #   run: |
+    #     git checkout ${{ inputs.src_branch }}
+    #     git merge tgt/${{ inputs.tgt_branch }} --allow-unrelated-histories
+    #     ls -la
 
     - name: Add CURRENT(TGT) repo PAT URL & Push it
       shell: bash
+      working-directory: ./temp_repo_dir
       run: |
         git remote add tgt https://${{ inputs.git_pat }}@github.com/${{ inputs.github_account_name }}/${{ inputs.tgt_repo }}.git
-        git push tgt ${{ inputs.tgt_branch }} --force
+        # git push tgt ${{ inputs.tgt_branch }} --force
 
         

@@ -42,7 +42,7 @@ jobs:
 
   
       # - uses: aviram2308/my_workflows/actions/sync-repo@master # for action.yml in external repo
-      - uses: ./actions/sync-repo   # for action.yml in this repo in specific dir
+      - uses: ./actions/sync-repo-list   # for action.yml in this repo in specific dir
       # - uses: ./   # for action.yml in this repo at root
         name: Calling Sync Action
         with: 
