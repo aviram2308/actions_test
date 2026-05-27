@@ -59,7 +59,7 @@ runs:
       shell: bash
       working-directory: ./temp_repo_dir
       run: |
-        git checkout ${{ inputs.tgt_branch }}
+        git checkout ${{ inputs.src_branch }}
         git merge src/${{ inputs.src_branch }} --allow-unrelated-histories
         ls -la
 
@@ -75,6 +75,7 @@ runs:
       shell: bash
       working-directory: ./temp_repo_dir
       run: |
+        git checkout ${{ inputs.src_branch }}
         git merge tgt/${{ inputs.tgt_branch }} --allow-unrelated-histories
         ls -la
 
@@ -83,6 +84,6 @@ runs:
       working-directory: ./temp_repo_dir
       run: |
         git remote add tgt https://${{ inputs.git_pat }}@github.com/${{ inputs.github_account_name }}/${{ inputs.tgt_repo }}.git
-        git push tgt ${{ inputs.tgt_branch }} --force
+        # git push tgt ${{ inputs.tgt_branch }} --force
 
         
