@@ -44,7 +44,7 @@ runs:
       shell: bash
       working-directory: ./temp_repo_dir
       run: |
-        git clone https://github.com/${{ inputs.github_account_name }}/${{ inputs.src_repo }}.git
+        git clone https://github.com/${{ inputs.github_account_name }}/${{ inputs.tgt_repo }}.git
         ls -la  
 
     - name: Add the SRC repo URL & Fetch it
