@@ -3,25 +3,50 @@ name: "Sync-Cross-Repo-test"
 on: 
   workflow_dispatch:
     inputs:
-      environmentS:
+      repo_list:
         description: 'Target environment'
         required: true
         default: '["repoA","repoB","repoC"]'   
+
+      src_branch: 
+        required: true
+        description: src_branch
+        default: master
+
+      tgt_branch: 
+        required: true
+        description: tgt_branch
 
 jobs:
   deploy:
     strategy:
       matrix:
-        environment: ${{ fromJson(inputs.environments) }}
+        this_repo: ${{ fromJson(inputs.repo_list) }}
 
     runs-on: ubuntu-latest
 
     steps:
-      - run: echo "Deploying to ${{ matrix.environment }}"
+      - run: echo "Merging ${{ matrix.this_repo }} @ ${{ inputs.src_branch }} to ${{ matrix.this_repo }}_aws @ ${{ inputs.tgt_branch }}"
         name: Step1
 
-      - run: echo "Deploying2 to ${{ matrix.environment }}"
-        name: Step2
+      - uses: actions/checkout@v4  
+        with:
+          persist-credentials: false  
+          repository: ${{ github.repository_owner}}/${{ matrix.this_repo }}  # checkout the src repo
+          ref: ${{ inputs.src_branch }}
+
+  
+      # - uses: aviram2308/my_workflows/actions/sync-repo@master # for action.yml in external repo
+      - uses: ./actions/sync-repo   # for action.yml in this repo in specific dir
+      # - uses: ./   # for action.yml in this repo at root
+        name: Calling Sync Action
+        with: 
+          git_pat: ${{ secrets.GIT_PAT }}  
+          src_repo: ${{ matrix.this_repo }}
+          src_branch: ${{ inputs.src_branch }}
+          tgt_repo: ${{ matrix.this_repo }}_aws
+          tgt_branch: ${{ inputs.tgt_branch }}
+          github_account_name: ${{ github.repository_owner}}
 
 
     
