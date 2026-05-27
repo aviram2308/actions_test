@@ -35,14 +35,14 @@ runs:
   steps:
     - name: Set GitHub Bots as Authors
       shell: bash
-      working-directory: .temp/
+      working-directory: ./temp_repo_dir
       run: |
         git config --global user.name "github-actions[bot]"
         git config --global user.email "github-actions[bot]@users.noreply.github.com"
 
     - name: Add the SRC repo URL & Fetch it
       shell: bash
-      working-directory: .temp/
+      working-directory: ./temp_repo_dir
       run: |
         git init
         git remote add src https://github.com/${{ inputs.github_account_name }}/${{ inputs.src_repo }}.git
@@ -50,20 +50,20 @@ runs:
 
     - name: Merge SRC branch with CURRENT(TGT) branch
       shell: bash
-      working-directory: .temp/
+      working-directory: ./temp_repo_dir
       run: |
         git checkout ${{ inputs.tgt_branch }}
         git merge src/${{ inputs.src_branch }} --allow-unrelated-histories
 
     - name: Verify the merge
       shell: bash
-      working-directory: .temp/
+      working-directory: ./temp_repo_dir
       run: |
         ls -la
 
     - name: Add CURRENT(TGT) repo PAT URL & Push it
       shell: bash
-      working-directory: .temp/
+      working-directory: ./temp_repo_dir
       run: |
         git remote add tgt https://${{ inputs.git_pat }}@github.com/${{ inputs.github_account_name }}/${{ inputs.tgt_repo }}.git
         git push tgt ${{ inputs.tgt_branch }} --force

@@ -36,6 +36,10 @@ jobs:
           # repository: ${{ github.repository_owner}}/${{ matrix.this_repo }}  # checkout the src repo
           # ref: ${{ inputs.src_branch }}
 
+
+      - run: mkdir temp_repo_dir
+        name: Create the temp directory for merging the repos
+
   
       # - uses: aviram2308/my_workflows/actions/sync-repo@master # for action.yml in external repo
       - uses: ./actions/sync-repo   # for action.yml in this repo in specific dir
@@ -49,5 +53,7 @@ jobs:
           tgt_branch: ${{ inputs.tgt_branch }}
           github_account_name: ${{ github.repository_owner}}
 
+
+          
 
     
