@@ -40,13 +40,20 @@ runs:
         git config --global user.name "github-actions[bot]"
         git config --global user.email "github-actions[bot]@users.noreply.github.com"
 
-    - name: Add the SRC repo URL & Fetch it
+    - name: Creating a empty repo in the temp dir
       shell: bash
       working-directory: ./temp_repo_dir
       run: |
         git init
+        ls -la  
+
+    - name: Add the SRC repo URL & Fetch it
+      shell: bash
+      working-directory: ./temp_repo_dir
+      run: |
         git remote add src https://github.com/${{ inputs.github_account_name }}/${{ inputs.src_repo }}.git
         git fetch src
+        ls -la  
 
     - name: Merge SRC branch with CURRENT(TGT) branch
       shell: bash
@@ -54,11 +61,21 @@ runs:
       run: |
         git checkout ${{ inputs.tgt_branch }}
         git merge src/${{ inputs.src_branch }} --allow-unrelated-histories
+        ls -la
 
-    - name: Verify the merge
+    - name: Add the TGT repo URL & Fetch it
       shell: bash
       working-directory: ./temp_repo_dir
       run: |
+        git remote add tgt https://github.com/${{ inputs.github_account_name }}/${{ inputs.tgt_repo }}.git
+        git fetch tgt
+        ls -la  
+
+    - name: Merge TGT branch with SRC branch
+      shell: bash
+      working-directory: ./temp_repo_dir
+      run: |
+        git merge tgt/${{ inputs.tgt_branch }} --allow-unrelated-histories
         ls -la
 
     - name: Add CURRENT(TGT) repo PAT URL & Push it
