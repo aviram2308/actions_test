@@ -59,7 +59,7 @@ runs:
       shell: bash
       working-directory: ./temp_repo_dir
       run: |
-        git checkout ${{ inputs.src_branch }}
+        git checkout ${{ inputs.tgt_branch }}
         git merge src/${{ inputs.src_branch }} --allow-unrelated-histories
         ls -la
 
