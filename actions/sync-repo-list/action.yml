@@ -38,8 +38,8 @@ runs:
       working-directory: ./temp_repo_dir
       run: |
         echo "Setting GitHub Bots as Authors"
-        git config --global user.name "github-actions[bot]"
-        git config --global user.email "github-actions[bot]@users.noreply.github.com"
+        git config --local user.name "github-actions[bot]"
+        git config --local user.email "github-actions[bot]@users.noreply.github.com"
         git remote -v
 
     - name: Cloning the TGT repo in temp dir
@@ -47,7 +47,7 @@ runs:
       working-directory: ./temp_repo_dir
       run: |
         echo "Cloning the TGT repo in temp dir"
-        git clone https://github.com/${{ inputs.github_account_name }}/${{ inputs.tgt_repo }}.git
+        git clone https://${{ inputs.git_pat }}@github.com/${{ inputs.github_account_name }}/${{ inputs.tgt_repo }}.git
         ls -la  
         git remote -v
 
@@ -56,7 +56,7 @@ runs:
       working-directory: ./temp_repo_dir/${{ inputs.tgt_repo }}
       run: |
         echo "Adding the SRC repo URL & Fetching it"
-        git remote add src https://github.com/${{ inputs.github_account_name }}/${{ inputs.src_repo }}.git
+        git remote add src https://${{ inputs.git_pat }}@github.com/${{ inputs.github_account_name }}/${{ inputs.src_repo }}.git
         git fetch src
         ls -la  
         git remote -v
@@ -92,8 +92,9 @@ runs:
       working-directory: ./temp_repo_dir/${{ inputs.tgt_repo }}
       run: |
         echo "Adding CURRENT(TGT) repo PAT URL & Pushing it"
-        git remote add tgt https://${{ inputs.git_pat }}@github.com/${{ inputs.github_account_name }}/${{ inputs.tgt_repo }}.git
+        # git remote add tgt https://${{ inputs.git_pat }}@github.com/${{ inputs.github_account_name }}/${{ inputs.tgt_repo }}.git
         # git push tgt ${{ inputs.tgt_branch }} --force
+        # git push ${{ inputs.tgt_branch }} --force
         git remote -v
 
         
