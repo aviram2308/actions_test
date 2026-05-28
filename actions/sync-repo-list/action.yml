@@ -40,6 +40,7 @@ runs:
         echo "Setting GitHub Bots as Authors"
         git config --global user.name "github-actions[bot]"
         git config --global user.email "github-actions[bot]@users.noreply.github.com"
+        git remote -v
 
     - name: Cloning the TGT repo in temp dir
       shell: bash
@@ -48,6 +49,7 @@ runs:
         echo "Cloning the TGT repo in temp dir"
         git clone https://github.com/${{ inputs.github_account_name }}/${{ inputs.tgt_repo }}.git
         ls -la  
+        git remote -v
 
     - name: Add the SRC repo URL & Fetch it
       shell: bash
@@ -57,6 +59,7 @@ runs:
         git remote add src https://github.com/${{ inputs.github_account_name }}/${{ inputs.src_repo }}.git
         git fetch src
         ls -la  
+        git remote -v
 
     - name: Merge SRC branch with CURRENT(TGT) branch
       shell: bash
@@ -66,6 +69,7 @@ runs:
         git checkout ${{ inputs.tgt_branch }}
         git merge src/${{ inputs.src_branch }} --allow-unrelated-histories
         ls -la
+        git remote -v
 
     # - name: Add the TGT repo URL & Fetch it
     #   shell: bash
@@ -90,5 +94,6 @@ runs:
         echo "Adding CURRENT(TGT) repo PAT URL & Pushing it"
         git remote add tgt https://${{ inputs.git_pat }}@github.com/${{ inputs.github_account_name }}/${{ inputs.tgt_repo }}.git
         # git push tgt ${{ inputs.tgt_branch }} --force
+        git remote -v
 
         
