@@ -1,4 +1,4 @@
-name: "Sync-Cross-Repo-test" 
+name: "Sync-Cross-Repo-List" 
 
 on: 
   workflow_dispatch:
