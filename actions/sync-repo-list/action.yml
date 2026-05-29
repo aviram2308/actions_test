@@ -97,9 +97,9 @@ runs:
       run: |
         echo "Adding CURRENT(TGT) repo PAT URL & Pushing it"
         echo "Current working directory: $(pwd)"
-        git remote add tgt https://${{ inputs.git_pat }}@github.com/${{ inputs.github_account_name }}/${{ inputs.tgt_repo }}.git
-        git push tgt ${{ inputs.tgt_branch }} --force
-        # git push origin ${{ inputs.tgt_branch }} --force
+        # git remote add tgt https://${{ inputs.git_pat }}@github.com/${{ inputs.github_account_name }}/${{ inputs.tgt_repo }}.git
+        # git push tgt ${{ inputs.tgt_branch }} --force
+        git push -u origin ${{ inputs.tgt_branch }} --force
         git remote -v
 
         
