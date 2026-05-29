@@ -39,8 +39,8 @@ runs:
       run: |
         echo "Setting GitHub Bots as Authors"
         echo "Current working directory: $(pwd)"
-        git config --local user.name "github-actions[bot]"
-        git config --local user.email "github-actions[bot]@users.noreply.github.com"
+        git config --global user.name "github-actions[bot]"
+        git config --global user.email "github-actions[bot]@users.noreply.github.com"
         git remote -v
 
     - name: Cloning the TGT repo in temp dir
