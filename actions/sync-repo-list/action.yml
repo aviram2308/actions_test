@@ -99,7 +99,7 @@ runs:
         echo "Current working directory: $(pwd)"
         # git remote add tgt https://${{ inputs.git_pat }}@github.com/${{ inputs.github_account_name }}/${{ inputs.tgt_repo }}.git
         # git push tgt ${{ inputs.tgt_branch }} --force
-        # git push ${{ inputs.tgt_branch }} --force
+        git push ${{ inputs.tgt_branch }} --force
         git remote -v
 
         
