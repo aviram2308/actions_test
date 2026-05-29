@@ -28,7 +28,7 @@ jobs:
 
     steps:
       - run: echo "Merging ${{ matrix.this_repo }} @ ${{ inputs.src_branch }} to ${{ matrix.this_repo }}_aws @ ${{ inputs.tgt_branch }}"
-        name: Step1
+        name: Init Step
 
       - uses: actions/checkout@v4  
         with:

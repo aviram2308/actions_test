@@ -38,6 +38,7 @@ runs:
       working-directory: ./temp_repo_dir
       run: |
         echo "Setting GitHub Bots as Authors"
+        echo "Current working directory: $(pwd)"
         git config --local user.name "github-actions[bot]"
         git config --local user.email "github-actions[bot]@users.noreply.github.com"
         git remote -v
@@ -47,6 +48,7 @@ runs:
       working-directory: ./temp_repo_dir
       run: |
         echo "Cloning the TGT repo in temp dir"
+          echo "Current working directory: $(pwd)"
         git clone https://${{ inputs.git_pat }}@github.com/${{ inputs.github_account_name }}/${{ inputs.tgt_repo }}.git
         ls -la  
         git remote -v
@@ -56,6 +58,7 @@ runs:
       working-directory: ./temp_repo_dir/${{ inputs.tgt_repo }}
       run: |
         echo "Adding the SRC repo URL & Fetching it"
+        echo "Current working directory: $(pwd)"
         git remote add src https://${{ inputs.git_pat }}@github.com/${{ inputs.github_account_name }}/${{ inputs.src_repo }}.git
         git fetch src
         ls -la  
@@ -66,6 +69,7 @@ runs:
       working-directory: ./temp_repo_dir/${{ inputs.tgt_repo }}
       run: |
         echo "Merging SRC branch with CURRENT(TGT) branch"
+        echo "Current working directory: $(pwd)"
         git checkout ${{ inputs.tgt_branch }}
         git merge src/${{ inputs.src_branch }} --allow-unrelated-histories
         ls -la
@@ -92,6 +96,7 @@ runs:
       working-directory: ./temp_repo_dir/${{ inputs.tgt_repo }}
       run: |
         echo "Adding CURRENT(TGT) repo PAT URL & Pushing it"
+        echo "Current working directory: $(pwd)"
         # git remote add tgt https://${{ inputs.git_pat }}@github.com/${{ inputs.github_account_name }}/${{ inputs.tgt_repo }}.git
         # git push tgt ${{ inputs.tgt_branch }} --force
         # git push ${{ inputs.tgt_branch }} --force
