@@ -75,13 +75,31 @@ runs:
         ls -la
         git remote -v
 
+    # - name: Add the TGT repo URL & Fetch it
+    #   shell: bash
+    #   working-directory: ./temp_repo_dir
+    #   run: |
+    #     git remote add tgt https://github.com/${{ inputs.github_account_name }}/${{ inputs.tgt_repo }}.git
+    #     git fetch tgt
+    #     ls -la  
+
+    # - name: Merge TGT branch with SRC branch
+    #   shell: bash
+    #   working-directory: ./temp_repo_dir
+    #   run: |
+    #     git checkout ${{ inputs.src_branch }}
+    #     git merge tgt/${{ inputs.tgt_branch }} --allow-unrelated-histories
+    #     ls -la
+
     - name: Add CURRENT(TGT) repo PAT URL & Push it
       shell: bash
       working-directory: ./temp_repo_dir/${{ inputs.tgt_repo }}
       run: |
         echo "Adding CURRENT(TGT) repo PAT URL & Pushing it"
         echo "Current working directory: $(pwd)"
-        git remote -v
+        # git remote add tgt https://${{ inputs.git_pat }}@github.com/${{ inputs.github_account_name }}/${{ inputs.tgt_repo }}.git
+        # git push tgt ${{ inputs.tgt_branch }} --force
         git push -u origin ${{ inputs.tgt_branch }} --force
+        git remote -v
 
         

@@ -16,7 +16,7 @@ on:
       tgt_branch: 
         required: true
         description: tgt_branch
-        default: master
+        default: main_tgt
 
 jobs:
   deploy:
