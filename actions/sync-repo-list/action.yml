@@ -75,11 +75,11 @@ runs:
         ls -la
         git remote -v
 
-    - name: Add CURRENT(TGT) repo PAT URL & Push it
+    - name: Pushing the changes to the TGT repo
       shell: bash
       working-directory: ./temp_repo_dir/${{ inputs.tgt_repo }}
       run: |
-        echo "Adding CURRENT(TGT) repo PAT URL & Pushing it"
+        echo "Pushing the changes to the TGT repo"
         echo "Current working directory: $(pwd)"
         git remote -v
         git push -u origin ${{ inputs.tgt_branch }} --force
