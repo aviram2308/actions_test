@@ -69,6 +69,7 @@ runs:
       id: check
       run: |
         set +e
+        git checkout ${{ inputs.tgt_branch }}
         git diff --name-status ${{ inputs.tgt_branch }} src/${{ inputs.src_branch }}
         exitcode=$?
 
