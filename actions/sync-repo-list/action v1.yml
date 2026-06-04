@@ -64,23 +64,8 @@ runs:
         ls -la  
         git remote -v
 
-    - name: Check if the 2 repos are already in sync or not
-      shell: bash
-      id: check
-      run: |
-        set +e
-        git diff --name-status ${{ inputs.tgt_branch }} src/${{ inputs.src_branch }}
-        exitcode=$?
-
-        if [ $exitcode -eq 0 ]; then
-          echo "skip=true" >> $GITHUB_OUTPUT
-        else
-          echo "skip=false" >> $GITHUB_OUTPUT
-        fi
-
     - name: Merge SRC branch with CURRENT(TGT) branch
       shell: bash
-      if: steps.check.outputs.skip != 'true'
       working-directory: ./temp_repo_dir/${{ inputs.tgt_repo }}
       run: |
         echo "Merging SRC branch with CURRENT(TGT) branch"
@@ -92,7 +77,6 @@ runs:
 
     - name: Pushing the changes to the TGT repo
       shell: bash
-      if: steps.check.outputs.skip != 'true'
       working-directory: ./temp_repo_dir/${{ inputs.tgt_repo }}
       run: |
         echo "Pushing the changes to the TGT repo"
