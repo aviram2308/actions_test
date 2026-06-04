@@ -60,7 +60,7 @@ runs:
         echo "Adding the SRC repo URL & Fetching it"
         echo "Current working directory: $(pwd)"
         git remote add src https://${{ inputs.git_pat }}@github.com/${{ inputs.github_account_name }}/${{ inputs.src_repo }}.git
-        git fetch src
+        git fetch src --all
         ls -la  
         git remote -v
 
