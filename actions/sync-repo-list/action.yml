@@ -66,13 +66,14 @@ runs:
 
     - name: Check if the 2 repos are already in sync or not
       shell: bash
+      working-directory: ./temp_repo_dir/${{ inputs.tgt_repo }}
       id: check
       run: |
         set +e
         git checkout ${{ inputs.tgt_branch }}
         # diff -qr . src/${{ inputs.src_branch }}
         # diff -qr /a /b
-        git diff --name-status origin/${{ inputs.tgt_branch }} src/${{ inputs.src_branch }}
+        git diff --name-status  ${{ inputs.tgt_branch }} src/${{ inputs.src_branch }} 
         # git diff --name-status HEAD src/${{ inputs.src_branch }}
         # git diff --name-status ${{ inputs.tgt_branch }} src/${{ inputs.src_branch }}
         exitcode=$?
