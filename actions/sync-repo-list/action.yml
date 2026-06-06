@@ -72,8 +72,8 @@ runs:
         git checkout ${{ inputs.tgt_branch }}
         # diff -qr . src/${{ inputs.src_branch }}
         # diff -qr /a /b
-        # git diff --name-status HEAD src/${{ inputs.src_branch }}
-        git diff --name-status ${{ inputs.tgt_branch }} src/${{ inputs.src_branch }}
+        git diff --name-status HEAD src/${{ inputs.src_branch }}..HEAD
+        # git diff --name-status ${{ inputs.tgt_branch }} src/${{ inputs.src_branch }}
         exitcode=$?
 
         if [ $exitcode -eq 0 ]; then
