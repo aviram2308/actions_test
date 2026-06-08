@@ -7,6 +7,12 @@ on:
         description: 'Target environment'
         required: true
         default: '["repoA","repoB","repoC"]'   
+              
+      tgt_repo_suffix: 
+        required: true
+        description: tgt_repo_suffix
+        default: _aws
+
 
       src_branch: 
         required: true
@@ -52,7 +58,7 @@ jobs:
           git_pat: ${{ secrets.GIT_PAT }}  
           src_repo: ${{ matrix.this_repo }}
           src_branch: ${{ inputs.src_branch }}
-          tgt_repo: ${{ matrix.this_repo }}_aws
+          tgt_repo: ${{ matrix.this_repo }}_${{ inputs.tgt_repo_suffix }}
           tgt_branch: ${{ inputs.tgt_branch }}
           github_account_name: ${{ github.repository_owner}}
 
