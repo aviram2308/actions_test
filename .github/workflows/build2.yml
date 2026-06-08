@@ -4,24 +4,24 @@ on:
   workflow_dispatch:
     inputs:
       repo_list:
-        description: 'Target environment'
+        description: 'Source repo list in JSON format'
         required: true
         default: '["repoA","repoB","repoC"]'   
               
       tgt_repo_suffix: 
         required: true
-        description: tgt_repo_suffix
+        description: Suffix for the target repo names
         default: _aws
 
 
       src_branch: 
         required: true
-        description: src_branch
+        description: Source branch to sync from
         default: master
 
       tgt_branch: 
         required: true
-        description: tgt_branch
+        description: Target branch to sync to
         default: main_tgt
 
 jobs:
