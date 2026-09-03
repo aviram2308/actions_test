@@ -1,0 +1,17 @@
+name: Trigger Test Workflow
+
+on:
+  push:
+    branches:
+      - release-*
+#
+jobs:
+  build:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Print current branch and commit
+        run: |
+          echo "Branch: ${GITHUB_REF_NAME}"
+          echo "Commit: ${GITHUB_SHA}"
+          echo "Current time in IST: $(TZ=Asia/Kolkata date)"
