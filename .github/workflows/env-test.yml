@@ -1,5 +1,5 @@
 name: Env-Test
-
+run-name: Deploying commit ${{ github.sha }} to ${{ github.ref_name }}
 on:
   push:
     branches:
