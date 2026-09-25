@@ -1,11 +1,11 @@
-name: Deploy
+name: Env-Test
 
 on:
   push:
     branches:
       - main
-  paths:
-    - ".github/workflows/env-test.yml"
+    paths:
+        - ".github/workflows/env-test.yml"
 
 jobs:
   deploy:
