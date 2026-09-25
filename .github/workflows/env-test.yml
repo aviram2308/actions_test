@@ -3,7 +3,7 @@ name: Env-Test
 on:
   push:
     branches:
-      - main
+      - master
     paths:
         - ".github/workflows/env-test.yml"
 
