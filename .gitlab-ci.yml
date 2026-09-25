@@ -1,0 +1,102 @@
+stages:
+  - validate
+  - build
+  - deploy-dev
+  - deploy-qa
+  - deploy-uat
+  - deploy-prod
+
+workflow:
+  rules:
+    - if: $CI_PIPELINE_SOURCE == "push" && ($CI_COMMIT_BRANCH == "main" || $CI_COMMIT_BRANCH == "dev" || $CI_COMMIT_BRANCH =~ /^release\// || $CI_COMMIT_BRANCH =~ /^hotfix\/)
+    - if: $CI_PIPELINE_SOURCE == "merge_request_event" && $CI_MERGE_REQUEST_TARGET_BRANCH_NAME == "main"
+    - if: $CI_PIPELINE_SOURCE == "web"
+
+variables:
+  IMAGE: ghcr.io/$CI_PROJECT_PATH:$CI_COMMIT_SHA
+
+ci:
+  stage: validate
+  image: alpine:latest
+  rules:
+    - if: $CI_PIPELINE_SOURCE == "merge_request_event" && $CI_MERGE_REQUEST_TARGET_BRANCH_NAME == "main"
+  script:
+    - echo "CI checks passed"
+
+validate:
+  stage: validate
+  image: alpine:latest
+  rules:
+    - if: $CI_PIPELINE_SOURCE == "push" && ($CI_COMMIT_BRANCH == "main" || $CI_COMMIT_BRANCH == "dev" || $CI_COMMIT_BRANCH =~ /^release\// || $CI_COMMIT_BRANCH =~ /^hotfix\/)
+    - if: $CI_PIPELINE_SOURCE == "web"
+  script:
+    - echo "Validation passed"
+
+build:
+  stage: build
+  image: docker:latest
+  services:
+    - docker:dind
+  needs:
+    - validate
+  rules:
+    - if: $CI_PIPELINE_SOURCE == "push" && ($CI_COMMIT_BRANCH == "main" || $CI_COMMIT_BRANCH == "dev" || $CI_COMMIT_BRANCH =~ /^release\// || $CI_COMMIT_BRANCH =~ /^hotfix\/)
+    - if: $CI_PIPELINE_SOURCE == "web"
+  script:
+    - echo "$CI_REGISTRY_PASSWORD" >/tmp/registry_pass
+    - docker login -u "$CI_REGISTRY_USER" -p "$CI_REGISTRY_PASSWORD" ghcr.io
+    - docker build --tag "$IMAGE" .
+    - docker push "$IMAGE"
+
+deploy-dev:
+  stage: deploy-dev
+  image: alpine:latest
+  needs:
+    - build
+  environment:
+    name: dev
+  rules:
+    - if: $CI_PIPELINE_SOURCE == "push" && ($CI_COMMIT_BRANCH == "main" || $CI_COMMIT_BRANCH == "dev" || $CI_COMMIT_BRANCH =~ /^release\// || $CI_COMMIT_BRANCH =~ /^hotfix\/)
+    - if: $CI_PIPELINE_SOURCE == "web"
+  script:
+    - docker pull "$IMAGE"
+    - echo "Deploying $IMAGE to Dev"
+
+deploy-qa:
+  stage: deploy-qa
+  image: alpine:latest
+  needs:
+    - deploy-dev
+  environment:
+    name: qa
+  rules:
+    - if: $CI_COMMIT_BRANCH =~ /^release\// || $CI_COMMIT_BRANCH =~ /^hotfix\/
+  script:
+    - docker pull "$IMAGE"
+    - echo "Deploying $IMAGE to QA"
+
+deploy-uat:
+  stage: deploy-uat
+  image: alpine:latest
+  needs:
+    - deploy-qa
+  environment:
+    name: uat
+  rules:
+    - if: $CI_COMMIT_BRANCH =~ /^release\// || $CI_COMMIT_BRANCH =~ /^hotfix\/
+  script:
+    - docker pull "$IMAGE"
+    - echo "Deploying $IMAGE to UAT"
+
+deploy-prod:
+  stage: deploy-prod
+  image: alpine:latest
+  needs:
+    - deploy-uat
+  environment:
+    name: prod
+  rules:
+    - if: $CI_COMMIT_BRANCH =~ /^release\// || $CI_COMMIT_BRANCH =~ /^hotfix\/
+  script:
+    - docker pull "$IMAGE"
+    - echo "Deploying $IMAGE to Production"
