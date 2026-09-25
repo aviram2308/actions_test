@@ -1,0 +1,27 @@
+name: Deploy
+
+on:
+  push:
+    branches:
+      - main
+  paths:
+    - ".github/workflows/env-test.yml"
+
+jobs:
+  deploy:
+    name: Deploy to Dev
+    runs-on: ubuntu-latest
+
+    environment: 
+      name: dev
+      url: https://example.com
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Deploy
+        run: |
+          echo "Deploying to DEV"
+          echo "Environment: ${{ github.environment }}"
+          echo "URL: ${{ job.environment.url }}"
